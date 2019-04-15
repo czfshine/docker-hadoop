@@ -34,7 +34,7 @@ A dockerfile for setting up a full Hadoop cluster server
 
 * 端口映射 将容器的端口和主机的端口关联起来
 
-> 我们的Hadoop 的datanode和namenode什么的都会监听同样的端口,我们将这些端口映射到主机的不同端口上,可以从主机访问各个容器的访问状态.
+> 我们的Hadoop 的datanode和namenode什么的都会监听同样的端口,我们将这些端口映射到主机的不同端口上,可以从主机访问各个容器的状态.
 
 * docker-compose 用来启动和配置多个镜像
 
@@ -43,6 +43,16 @@ A dockerfile for setting up a full Hadoop cluster server
 
 
 # 0.安装依赖
+
+在宿主机上需要用到的程序大概有(不完全):
+
+* `docker-ce` 社区版就行
+
+* `maven` java 的库和项目管理程序
+
+* `idea` java的IDE
+
+   
 
 # 1.生成镜像
 
