@@ -4,7 +4,8 @@ FROM czfshine/openjdk8:latest
 RUN apt-get update && \
     apt-get install -y openssh-server && \
     apt-get clean &&\
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/*
 
 #自己免密登录自己,因为所有hadoop镜像都是基于这个镜像,
 #所以,每个节点的公钥和私钥都一样

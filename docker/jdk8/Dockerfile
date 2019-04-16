@@ -6,7 +6,8 @@ COPY sources.list /etc/apt/sources.list
 RUN apt-get update && \
     apt-get install -y openjdk-8-jdk && \
     apt-get clean &&\
-    apt-get autoclean
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/*
 # 环境变量
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
