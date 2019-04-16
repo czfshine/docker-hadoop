@@ -55,7 +55,8 @@ A dockerfile for setting up a full Hadoop cluster server
 
 # 1.生成镜像
 
-
+> 这一步可以跳过,直接在docker hub下载我上传的镜像
+> 然后在某一步出错或卡住,去看持续集成是怎么做的(travis-ci的脚本)
 
 ### 1.0 前言
 
@@ -63,7 +64,7 @@ A dockerfile for setting up a full Hadoop cluster server
 >
 > * https://hub.docker.com/r/sequenceiq/hadoop-docker
 >
->    
+>     
 
 ### 1.1 参考资料
 
@@ -119,9 +120,25 @@ ssh localhost
 
 # 2.测试镜像和启动
 
+## 启动
+ `tools`下有两个脚本
+ * `start-all-containers.sh` 启动一个hadoop集群,并attach到master
+ * `stop-all-containers.sh` 关掉并清理上一个脚本启动的容器
+
+启动集群后,连接master,在用户目录下有个start-hadoop.sh脚本,执行后会在各个节点启动对应的hadoop服务.
+
+## 执行命令和代码
+
+启动集群和服务后,在master下可以直接执行下列类似的命令:
+```bash
+hadopp dfs -ls /
+hadoop jar xxxx.jar xxx yyy zzz
+```
+同时,挂载了宿主机的`~/hadoop` 到容器的`/data`.需要执行的jar包和数据可以直接放到该目录下.
+
 # 3. docker-compose 配置和启动
-
+> todo
 # 4.IDEA的配置
-
+> todo :基本上开箱即用,不过可以装几个QOL的插件
 # 5. 示例项目
-
+在example文件夹下,具体看里面的README.MD
