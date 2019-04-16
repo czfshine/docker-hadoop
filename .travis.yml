@@ -1,0 +1,17 @@
+services:
+  - docker
+
+before_install:
+  - cd ./docker/jdk8/
+  - docker build -t czfshine/openjdk8 .
+  - cd ../..
+  - cd ./docker/ssh
+  - docker build -t czfshine/ssh .
+  - cd ../..
+  - cd ./docker/hadoop-base
+  - ./download.sh
+  - ./clean.sh
+  - docker build -t czfshine/hadoop-base:2.7.7 .
+  - docker images ls
+script:
+  - pwd
