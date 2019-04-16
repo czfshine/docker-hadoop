@@ -1,5 +1,5 @@
 
-
+[![Build Status](https://travis-ci.org/czfshine/docker-hadoop.svg?branch=master)](https://travis-ci.org/czfshine/docker-hadoop)
 # docker-hadoop
 
 A dockerfile for setting up a full Hadoop cluster server 
