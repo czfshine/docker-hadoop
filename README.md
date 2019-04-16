@@ -15,10 +15,6 @@ A dockerfile for setting up a full Hadoop cluster server
 * [ ] 一些文章博客教程
 * [ ] 几个简单到复杂的示例项目
 
-
-
-
-
 [TOC]
 
 # -1. 基础概念
@@ -63,7 +59,7 @@ A dockerfile for setting up a full Hadoop cluster server
 
 ### 1.0 前言
 
-> 其实很多人(包括我)都搭建过镜像,然后上传到Docker Hub的,区别(可能)只是里面的配置文件不一样,所以不想自己搭建的可以用搭好的,然后再改改.不过不保证可用性,下面是一些~~看起来~~比较有用的镜像:
+> 其实很多人(包括我)都搭建过hadoop的镜像,然后上传到Docker Hub的,区别(可能)只是里面的配置文件不一样,所以不想自己搭建的可以用搭好的,然后再改改.不过不保证可用性,下面是一些~~看起来~~比较有用的镜像:
 >
 > * https://hub.docker.com/r/sequenceiq/hadoop-docker
 >
@@ -112,7 +108,9 @@ ssh localhost
 
 * 首先cd到`docker/hadoop-base`文件夹下
 * 执行`./download.sh` 它将从清华大学镜像站下载2.7.7版本的Hadoop
+
     这一步当然可以写在Dockerfile里面,可是考虑到每一次构建镜像都要下载一次太慢了,就算了:)
+
 * 执行`clean.sh` 删掉hadoop里面的文档,这些我们不需要打包到镜像的
 
 ```
