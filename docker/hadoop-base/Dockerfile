@@ -2,7 +2,7 @@ FROM czfshine/ssh:latest
 WORKDIR /root
 COPY ./hadoop-2.7.7/ /usr/local/hadoop/
 COPY ./config/* /tmp/
-
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 

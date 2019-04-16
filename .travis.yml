@@ -2,12 +2,15 @@ services:
   - docker
 
 before_install:
+  # 构建jdk8
   - cd ./docker/jdk8/
   - docker build -t czfshine/openjdk8 .
   - cd ../..
+  #构建ssh
   - cd ./docker/ssh
   - docker build -t czfshine/ssh .
   - cd ../..
+  #构建基础的hadoop镜像
   - cd ./docker/hadoop-base
   - ./download.sh
   - ./clean.sh
@@ -15,8 +18,8 @@ before_install:
   - docker images ls
 script:
   - pwd
-
 after_success:
+  #上传到hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push czfshine/openjdk8
   - docker push czfshine/ssh
