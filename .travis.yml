@@ -1,26 +1,32 @@
 services:
   - docker
-
-before_install:
-  # 构建jdk8
-  - cd ./docker/jdk8/
-  - docker build -t czfshine/openjdk8 .
-  - cd ../..
-  #构建ssh
-  - cd ./docker/ssh
-  - docker build -t czfshine/ssh .
-  - cd ../..
-  #构建基础的hadoop镜像
-  - cd ./docker/hadoop-base
-  - ./download.sh
-  - ./clean.sh
-  - docker build -t czfshine/hadoop-base:2.7.7 .
-  - docker images ls
-script:
-  - pwd
-after_success:
-  #上传到hub
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push czfshine/openjdk8
-  - docker push czfshine/ssh
-  - docker push czfshine/hadoop-base
+jobs:
+  include:
+    - stage: build images
+      before_install:
+        # 构建jdk8
+        - cd ./docker/jdk8/
+        - docker build -t czfshine/openjdk8 .
+        - cd ../..
+        #构建ssh
+        - cd ./docker/ssh
+        - docker build -t czfshine/ssh .
+        - cd ../..
+        #构建基础的hadoop镜像
+        - cd ./docker/hadoop-base
+        - ./download.sh
+        - ./clean.sh
+        - docker build -t czfshine/hadoop-base:2.7.7 .
+        - docker images ls
+      script:
+        - pwd
+      after_success:
+        #上传到hub
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push czfshine/openjdk8
+        - docker push czfshine/ssh
+        - docker push czfshine/hadoop-base
+    - stage: test images
+      script: docker run -itd czfshine/openjdk8
+    - script: docker run -itd czfshine/ssh
+    - script: dokcer run -itd czfshine/hadoop-base
