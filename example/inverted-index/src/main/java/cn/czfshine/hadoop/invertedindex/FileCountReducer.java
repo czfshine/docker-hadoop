@@ -18,8 +18,12 @@ public class FileCountReducer extends Reducer<Text, FileCount, Text, Text> {
 
     public void reduce(Text key,Iterable<FileCount> values,Context context) throws IOException, InterruptedException {
         StringBuilder stringBuilder = new StringBuilder();
-        values.forEach((fileCount ->
-                stringBuilder.append(fileCount.toString())));
+
+        for (FileCount fileCount:
+                values
+             ) {
+            stringBuilder.append(fileCount.toString());
+        }
         Text text = new Text();
         text.set(stringBuilder.toString());
         context.write(key,text);

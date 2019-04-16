@@ -31,12 +31,12 @@ public class UseStream {
                 "czfshine","123","456"));
 
         data.put("b.txt",strings2);
-
+/*
         data.entrySet().stream().flatMap((k)-> {
             System.out.println(k);
             return k.getValue().stream();
         });
-
+*/
 
     }
 }

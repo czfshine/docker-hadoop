@@ -25,8 +25,8 @@
                 <configuration>
                     <!-- JDK 8的,要和容器的一致,
                     不过现在基本上最好都默认是jdk 8+64位,可以省去好多问题-->
-                    <source>8</source>
-                    <target>8</target>
+                    <source>7</source>
+                    <target>7</target>
                 </configuration>
             </plugin>
         </plugins>
