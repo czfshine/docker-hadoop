@@ -29,4 +29,4 @@ jobs:
     - stage: test images
       script: docker run -itd czfshine/openjdk8
     - script: docker run -itd czfshine/ssh
-    - script: docker run -itd czfshine/hadoop-base
+    - script: docker run -itd czfshine/hadoop-base:2.7.7
