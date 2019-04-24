@@ -10,6 +10,7 @@ import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -24,6 +25,23 @@ public class InvertedIndex {
             fileSystem.delete(new Path(outputdir),true);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public static class AMP extends Partitioner<Text,FileCount> {
+
+        public AMP(){}
+        @Override
+        public int getPartition(Text text, FileCount text2, int i) {
+            int i1 =  text.charAt(0);
+            char c = (char) Character.toLowerCase(i1);
+
+            if(c>= 'a' && c<='m'){
+                return 1%i;
+            }else if(c>='n' &&c<='z' ){
+                return 2%i;
+            }
+
+            return 0;
         }
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
@@ -56,7 +74,8 @@ public class InvertedIndex {
         job2.setOutputKeyClass(Text.class);
         job2.setOutputValueClass(Text.class);
 
-
+        job2.setPartitionerClass(AMP.class);
+        job2.setNumReduceTasks(3);
         job2.setInputFormatClass(SequenceFileInputFormat.class);
         FileInputFormat.addInputPath(job2, new Path(out1));
         FileOutputFormat.setOutputPath(job2, new Path(out2));
