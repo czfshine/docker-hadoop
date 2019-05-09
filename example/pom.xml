@@ -11,6 +11,7 @@
     <modules>
         <module>wordcounter</module>
         <module>inverted-index</module>
+        <module>trade</module>
     </modules>
     <build>
         <!--
