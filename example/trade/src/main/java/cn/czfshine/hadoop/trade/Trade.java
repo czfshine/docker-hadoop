@@ -32,7 +32,7 @@ public class Trade {
             tradeBean.setUsername(split[0]);
             tradeBean.setIncome(Double.valueOf(split[1]));
             tradeBean.setPayment(Double.valueOf(split[2]));
-            outkey.set(split[0]);
+            outkey.set(split[0])` `;
             context.write(outkey, tradeBean);
             System.out.println(outkey.toString());
 
@@ -95,22 +95,13 @@ public class Trade {
         deleteOutputDir(conf, "output/trade");
 
         Trade trade = new Trade();
+
         Job job1 = trade.createJob(conf, inpath, out1, Map1.class, Reduce1.class);
+        Job job2 = trade.createJob(conf,out1,out2,Map2.class,Reduce2.class);
+
         job1.setOutputFormatClass(SequenceFileOutputFormat.class);
-
-        Job job2 = Job.getInstance(conf, "InvertedIndex");
-        job2.setJarByClass(Trade.class);
-        job2.setMapperClass(Map2.class);
-        job2.setReducerClass(Reduce2.class);
-
-        job2.setMapOutputKeyClass(TradeBean.class);
-        job2.setMapOutputValueClass(NullWritable.class);
-        job2.setOutputKeyClass(TradeBean.class);
-        job2.setOutputValueClass(NullWritable.class);
-
         job2.setInputFormatClass(SequenceFileInputFormat.class);
-        FileInputFormat.addInputPath(job2, new Path(out1));
-        FileOutputFormat.setOutputPath(job2, new Path(out2));
+
 
         if (job1.waitForCompletion(true)) {
             System.exit(job2.waitForCompletion(true) ? 0 : 1);
