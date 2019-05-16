@@ -8,3 +8,4 @@ example/output
 docker/hadoop-base/hadoop-2\.7\.7/
 
 docker/hadoop-base/hadoop-2\.7\.7\.tar\.gz
+.idea/
